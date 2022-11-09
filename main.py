@@ -6,6 +6,8 @@ import seaborn as sns
 # Limits number of rows to speed up analysis
 number_of_rows = 2000
 
+# for graph 4 and 5 used 200 000
+number_of_rows = 200000
 
 """
 Loads data
@@ -98,7 +100,21 @@ def main():
     #     else:
     #         result_dict[index[1]] = (index[0], new_value)
     # print(result_dict)
-    
+
+    # Graph nr 4: 
+    # features = ["Amenity", "Bump", "Crossing", "Give_Way", "Junction", "No_Exit", "Railway", "Roundabout", "Stop",  "Traffic_Signal"]
+    # result_dict = {key: None for key in features}
+    # for feature in features:
+    #     rslt_df = df[df[feature] == True] 
+    #     feature_result = rslt_df[[feature, "Severity"]].groupby("Severity").value_counts()
+    #     for index, value in feature_result.items():
+    #         new_value = str(round(value / len(rslt_df)* 100, 4) ) + "%"
+    #         if result_dict[feature] != None:
+    #             result_dict[feature] = result_dict[feature] + (index[0], new_value)
+    #         else:
+    #             result_dict[feature] = (index[0], new_value)
+    # print(result_dict)
+
 
 if __name__ == "__main__":
     main()
