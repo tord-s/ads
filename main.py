@@ -20,6 +20,14 @@ Data cleaning / processing
 """
 def prepare_data(df):
     # print(df.isna().sum())
+    # df_z_scaled = df.copy().loc[:, ["Severity", "Temperature(F)", "Humidity(%)", "Pressure(in)", "Wind_Chill(F)", "Humidity(%)",
+    #  "Pressure(in)", "Visibility(mi)", "Wind_Speed(mph)", "Precipitation(in)"]]
+
+    # # apply normalization techniques
+    # for column in df_z_scaled.columns:
+    #     df_z_scaled[column] = (df_z_scaled[column] -
+    #                         df_z_scaled[column].mean()) / df_z_scaled[column].std() 
+    # return df_z_scaled
     pass
 
 """
@@ -58,7 +66,7 @@ def visualize_correlations(df, features):
 Parent function to start analysis
 """
 def analysis(df):
-    average_and_mean(df, "Severity")
+    # average_and_mean(df, "Severity")
     plot_feature_histogram(df, "Severity")
 
 """
@@ -69,12 +77,28 @@ def main():
     prepare_data(df)
     # analysis(df)
 
-    # This shows higher severity has a lower mean temperature
-    group_analysis(df, "Severity", "Temperature(F)")
+    # Graph nr 1: Correlations between the quantitative weather features and severit
+    # features = ["Severity", "Temperature(F)", "Humidity(%)", "Wind_Chill(F)",
+    #  "Pressure(in)", "Visibility(mi)", "Wind_Speed(mph)", "Precipitation(in)"]
+    # visualize_correlations(df, features)
 
-    features = ["Severity", "Temperature(F)", "Humidity(%)", "Pressure(in)",]
-    visualize_correlations(df, features)
+    # Graph nr 2: This shows higher severity has a lower mean temperature
+    # group_analysis(df, "Severity", "Temperature(F)")
 
+
+    # Graph nr 3:
+    # nr_of_weather = df["Weather_Condition"].value_counts()
+    # grouped_by_severity = df[["Weather_Condition", "Severity"]].groupby("Severity").value_counts()
+    # keyList = df["Weather_Condition"].unique()
+    # result_dict = {key: None for key in keyList}
+    # for index, value in grouped_by_severity.items():
+    #     new_value = str(round(value / nr_of_weather[index[1]]* 100, 4) ) + "%"
+    #     if result_dict[index[1]] != None:
+    #         result_dict[index[1]] = result_dict[index[1]] + (index[0], new_value)
+    #     else:
+    #         result_dict[index[1]] = (index[0], new_value)
+    # print(result_dict)
+    
 
 if __name__ == "__main__":
     main()
