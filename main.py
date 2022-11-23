@@ -7,14 +7,14 @@ import seaborn as sns
 # number_of_rows = 20000
 
 # for graph 4 and 5 used 200 000
-# number_of_rows = 200000
+number_of_rows = 200000
 
 """
 Loads data
 """
 def setup():
-    # df = pd.read_csv("data.csv", nrows=number_of_rows)
-    df = pd.read_csv("data.csv")
+    df = pd.read_csv("data.csv", nrows=number_of_rows)
+    # df = pd.read_csv("data.csv")
     print('Dataframe loaded...')
     return df
 
@@ -106,6 +106,10 @@ def main():
     # Graph nr 2: This shows higher severity has a lower mean temperature
     # group_analysis(df, "Severity", "Temperature(F)")
 
+    # Graph nr 2 v2: This shows higher severity has a lower mean temperature plotted
+    # group_analysis(df, "Severity", "Temperature(F)")
+
+
     # Graph nr 6: This shows higher severity has a lower mean temperature
     # freeze_df, hotter_df = df[df["Temperature(F)"].astype(int) < 38], df[df["Temperature(F)"].astype(int) >= 38]
 
@@ -161,6 +165,34 @@ def main():
     # ax.bar_label(bar1, padding=2)
     # plt.show()
 
+    # Graph 3 v3:
+    nr_of_weather = df["Weather_Condition"].value_counts()
+    grouped_by_severity = df[["Weather_Condition", "Severity"]].groupby("Severity").value_counts()
+    keyList = ["No Rain", "Overcast", "Rain", "Light rain", "Drizzle","Light Freezing Drizzle", "Light Drizzle", "Heavy Drizzle", "Heavy Rain"]
+    result_values = []
+    for key in keyList:
+        try:
+            new_value = round(grouped_by_severity[(4, key)] / nr_of_weather[key]* 100, 2) + round(grouped_by_severity[(3, key)] / nr_of_weather[key]* 100, 2)
+            result_values.append(new_value)
+        except:
+            result_values.append(0)
+    new_keyList = ["No Rain", "Some Rain", "Heavy Rain"]
+    new_results = [
+        (result_values[0] + result_values[1]) / 2,
+        (result_values[2] + result_values[3] + result_values[4] + result_values[5] + result_values[6]) / 5,
+        (result_values[7] + result_values[8]) / 2
+    ]
+    x = np.arange(len(new_keyList))
+    width = 0.3
+    fig, ax = plt.subplots()
+    bar1 = ax.bar(x, new_results, label="% High severity", width=0.3)
+    ax.set_xticks(x)
+    ax.set_xticklabels(new_keyList)
+    ax.legend()
+    plt.xticks(rotation='vertical')
+    ax.bar_label(bar1, padding=2)
+    plt.show()
+
 
     # Graph nr 4: 
     # features = ["Bump", "Crossing", "Give_Way", "Junction", "No_Exit", "Railway", "Roundabout", "Stop",  "Traffic_Signal"]
@@ -201,13 +233,15 @@ def main():
     # plt.show()
 
     # Graph 5:
-    street_df = pd.DataFrame(df['Street'].value_counts()).reset_index().rename(columns={'index':'Street No.', 'Street': 'Cases'})
-    top_ten_streets_df = pd.DataFrame(street_df.head(10))
-    top_ten_streets_df.plot(kind = 'bar',
-        x = 'Street No.',
-        y = 'Cases', ax = plt.gca())
-    plt.show()
+    # street_df = pd.DataFrame(df['Street'].value_counts()).reset_index().rename(columns={'index':'Street No.', 'Street': 'Cases'})
+    # top_ten_streets_df = pd.DataFrame(street_df.head(10))
+    # top_ten_streets_df.plot(kind = 'bar',
+    #     x = 'Street No.',
+    #     y = 'Cases', ax = plt.gca())
+    # plt.show()
 
+    # Find states
+    # print(df["State"].unique())
 
 if __name__ == "__main__":
     main()
