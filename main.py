@@ -7,7 +7,7 @@ import seaborn as sns
 # number_of_rows = 20000
 
 # for graph 4 and 5 used 200 000
-# number_of_rows = 200000
+# number_of_rows = 2000000
 
 """
 Loads data
@@ -98,7 +98,10 @@ def main():
     prepare_data(df)
     # analysis(df)
 
-    # Graph nr 1: Correlations between the quantitative weather features and severit
+    
+    """
+    Figure 4.11: Correlations between the quantitative weather features and severity
+    """
     # features = ["Severity", "Temperature(F)", "Humidity(%)", "Wind_Chill(F)",
     #  "Pressure(in)", "Visibility(mi)", "Wind_Speed(mph)", "Precipitation(in)"]
     # visualize_correlations(df, features)
@@ -114,7 +117,9 @@ def main():
     # freeze_df, hotter_df = df[df["Temperature(F)"].astype(int) < 38], df[df["Temperature(F)"].astype(int) >= 38]
 
 
-    # Graph 7: double bar chart for seveirty and freeze
+    """
+    Figure 4.8: Severity distribution of freezing vs non-freezing temperatures
+    """
     # freeze_df, hotter_df = df.loc[(pd.to_numeric(df['Temperature(F)'],errors='coerce')) < 38], df.loc[(pd.to_numeric(df['Temperature(F)'],errors='coerce')) >= 38]
     # y_values_freeze = plot__relative_feature_histogram(freeze_df, 'Severity')
     # y_values_hot =  plot__relative_feature_histogram(hotter_df, 'Severity') 
@@ -143,29 +148,12 @@ def main():
     #         result_dict[index[1]] = (index[0], new_value)
     # print(result_dict)
 
-    # Graph 3 v2:
-    # nr_of_weather = df["Weather_Condition"].value_counts()
-    # grouped_by_severity = df[["Weather_Condition", "Severity"]].groupby("Severity").value_counts()
-    # keyList = ["No Rain", "Overcast", "Rain", "Light rain", "Heavy Rain", "Light Freezing Drizzle", "Light Drizzle", "Heavy Drizzle", "Drizzle"]
-    # result_values = []
-    # for key in keyList:
-    #     try:
-    #         new_value = round(grouped_by_severity[(4, key)] / nr_of_weather[key]* 100, 2)
-    #         result_values.append(new_value)
-    #     except:
-    #         result_values.append(0)
-    # x = np.arange(len(keyList))
-    # width = 0.3
-    # fig, ax = plt.subplots()
-    # bar1 = ax.bar(x, result_values, label="Severity 4 percentage", width=0.3)
-    # ax.set_xticks(x)
-    # ax.set_xticklabels(keyList)
-    # ax.legend()
-    # plt.xticks(rotation='vertical')
-    # ax.bar_label(bar1, padding=2)
-    # plt.show()
 
-    # Graph 3 v3:
+
+
+    """
+    Figure 4.12: Percentage of high severity accidents during no rain, light rain and heavy rain
+    """
     # nr_of_weather = df["Weather_Condition"].value_counts()
     # grouped_by_severity = df[["Weather_Condition", "Severity"]].groupby("Severity").value_counts()
     # keyList = ["No Rain", "Overcast", "Rain", "Light rain", "Drizzle","Light Freezing Drizzle", "Light Drizzle", "Heavy Drizzle", "Heavy Rain"]
@@ -188,6 +176,102 @@ def main():
     # bar1 = ax.bar(x, new_results, label="% High severity", width=0.3)
     # ax.set_xticks(x)
     # ax.set_xticklabels(new_keyList)
+    # ax.legend()
+    # plt.xticks(rotation='vertical')
+    # ax.bar_label(bar1, padding=2)
+    # plt.show()
+
+
+
+    """
+    Figure 4.9 Percentage high severity accidents in or near junctions, traffic signals and roundabouts
+    """
+    # result_values = []
+    # keyList =  ["Junction", "Roundabout", "Traffic_Signal"]
+    # for feature in keyList:
+    #     rslt_df = df[df[feature] == True]
+    #     feature_result = rslt_df[[feature, "Severity"]].groupby("Severity").value_counts()
+    #     try:
+    #         new_value = round(feature_result[(4, True)] /  len(rslt_df)* 100, 2) + round(feature_result[(3, True)] /  len(rslt_df)* 100, 2)
+    #         result_values.append(new_value)
+    #     except:
+    #         # print('New line')
+    #         # print(feature_result[Severity == 4])
+    #         result_values.append(0)
+    # x = np.arange(len(keyList))
+    # width = 0.3
+    # fig, ax = plt.subplots()
+    # bar1 = ax.bar(x, result_values, label="% High severity", width=0.3)
+    # ax.set_xticks(x)
+    # ax.set_xticklabels(keyList)
+    # ax.legend()
+    # plt.xticks(rotation='vertical')
+    # ax.bar_label(bar1, padding=2)
+    # plt.show()
+
+    """
+    Figure 4.10: Percentage high severity accidents in or near give way and stop signs
+    """
+    # result_values = []
+    # keyList =  ["Give way", "Stop sign"]
+    # for feature in keyList:
+    #     rslt_df = df[df[feature] == True]
+    #     feature_result = rslt_df[[feature, "Severity"]].groupby("Severity").value_counts()
+    #     try:
+    #         new_value = round(feature_result[(4, True)] /  len(rslt_df)* 100, 2) + round(feature_result[(3, True)] /  len(rslt_df)* 100, 2)
+    #         result_values.append(new_value)
+    #     except:
+    #         # print('New line')
+    #         # print(feature_result[Severity == 4])
+    #         result_values.append(0)
+    # x = np.arange(len(keyList))
+    # width = 0.3
+    # fig, ax = plt.subplots()
+    # bar1 = ax.bar(x, result_values, label="% High severity", width=0.3)
+    # ax.set_xticks(x)
+    # ax.set_xticklabels(keyList)
+    # ax.legend()
+    # plt.xticks(rotation='vertical')
+    # ax.bar_label(bar1, padding=2)
+    # plt.show()
+
+    
+    """
+    Figure 4.6 Roads with the most annual accidents in thousans:
+    """
+    # street_df = pd.DataFrame(df['Street'].value_counts()).reset_index().rename(columns={'index':'Street No.', 'Street': 'Cases'})
+    # top_ten_streets_df = pd.DataFrame(street_df.head(10))
+    # print(top_ten_streets_df)
+    # top_ten_streets_df.plot(kind = 'bar',
+    #     x = 'Street No.',
+    #     y = 'Cases', ax = plt.gca())
+    # plt.show()
+
+    # Find states
+    # print(df["State"].unique())
+
+
+if __name__ == "__main__":
+    main()
+
+
+    # Graph 3 v2:
+    # nr_of_weather = df["Weather_Condition"].value_counts()
+    # grouped_by_severity = df[["Weather_Condition", "Severity"]].groupby("Severity").value_counts()
+    # keyList = ["No Rain", "Overcast", "Rain", "Light rain", "Heavy Rain", "Light Freezing Drizzle", "Light Drizzle", "Heavy Drizzle", "Drizzle"]
+    # result_values = []
+    # for key in keyList:
+    #     try:
+    #         new_value = round(grouped_by_severity[(4, key)] / nr_of_weather[key]* 100, 2)
+    #         result_values.append(new_value)
+    #     except:
+    #         result_values.append(0)
+    # x = np.arange(len(keyList))
+    # width = 0.3
+    # fig, ax = plt.subplots()
+    # bar1 = ax.bar(x, result_values, label="Severity 4 percentage", width=0.3)
+    # ax.set_xticks(x)
+    # ax.set_xticklabels(keyList)
     # ax.legend()
     # plt.xticks(rotation='vertical')
     # ax.bar_label(bar1, padding=2)
@@ -231,20 +315,3 @@ def main():
     # plt.xticks(rotation='vertical')
     # ax.bar_label(bar1, padding=2)
     # plt.show()
-
-    # Graph 5:
-    street_df = pd.DataFrame(df['Street'].value_counts()).reset_index().rename(columns={'index':'Street No.', 'Street': 'Cases'})
-    top_ten_streets_df = pd.DataFrame(street_df.head(10))
-    print(top_ten_streets_df)
-    top_ten_streets_df.plot(kind = 'bar',
-        x = 'Street No.',
-        y = 'Cases', ax = plt.gca())
-    plt.show()
-
-    # Find states
-    # print(df["State"].unique())
-
-if __name__ == "__main__":
-    main()
-
-
