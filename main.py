@@ -135,21 +135,6 @@ def main():
     # ax.bar_label(bar2, padding=2)
     # plt.show()
 
-    # Graph nr 3:
-    # nr_of_weather = df["Weather_Condition"].value_counts()
-    # grouped_by_severity = df[["Weather_Condition", "Severity"]].groupby("Severity").value_counts()
-    # keyList = df["Weather_Condition"].unique()
-    # result_dict = {key: None for key in keyList}
-    # for index, value in grouped_by_severity.items():
-    #     new_value = str(round(value / nr_of_weather[index[1]]* 100, 4) ) + "%"
-    #     if result_dict[index[1]] != None:
-    #         result_dict[index[1]] = result_dict[index[1]] + (index[0], new_value)
-    #     else:
-    #         result_dict[index[1]] = (index[0], new_value)
-    # print(result_dict)
-
-
-
 
     """
     Figure 4.12: Percentage of high severity accidents during no rain, light rain and heavy rain
